@@ -1,31 +1,30 @@
 {
-    "name": "broccoli-zopfli",
-    "version": "1.0.1",
-    "description": "Broccoli plugin to gzip trees using Zopfli",
-    "main": "index.js",
-    "author": "Nick Bruun",
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/nickbruun/broccoli-zopfli.git"
-    },
-    "keywords": [
-        "broccoli-plugin",
-        "gzip",
-        "zopfli"
-    ],
-    "devDependencies": {
-        "broccoli": "^1.1.0",
-        "expect.js": "^0.3.1",
-        "mocha": "^3.2.0"
-    },
-    "scripts": {
-        "test": "mocha tests/"
-    },
-    "dependencies": {
-        "broccoli-filter": "^1.2.4",
-        "broccoli-kitchen-sink-helpers": "^0.3.1",
-        "rsvp": "^3.3.3",
-        "node-zopfli": "~2.0.2"
-    }
+  "name": "broccoli-brotli",
+  "version": "1.0.0",
+  "description": "Broccoli plugin to gzip trees using Brotli",
+  "main": "index.js",
+  "author": "Greg V",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/myfreeweb/broccoli-brotli.git"
+  },
+  "keywords": [
+    "broccoli-plugin",
+    "brotli"
+  ],
+  "devDependencies": {
+    "broccoli": "^1.1.0",
+    "expect.js": "^0.3.1",
+    "mocha": "^3.2.0"
+  },
+  "scripts": {
+    "test": "mocha tests/"
+  },
+  "dependencies": {
+    "broccoli-filter": "^1.2.4",
+    "broccoli-kitchen-sink-helpers": "^0.3.1",
+    "iltorb": "^1.0.13",
+    "rsvp": "^3.3.3"
+  }
 }

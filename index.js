@@ -3,36 +3,32 @@ var RSVP = require('rsvp'),
     helpers = require('broccoli-kitchen-sink-helpers'),
     Filter = require('broccoli-filter'),
     Buffer = require('buffer').Buffer,
-    zopfli = require('node-zopfli');
+    brotli = require('iltorb');
 
 
-ZopfliFilter.prototype = Object.create(Filter.prototype);
-ZopfliFilter.prototype.constructor = ZopfliFilter;
+BrotliFilter.prototype = Object.create(Filter.prototype);
+BrotliFilter.prototype.constructor = BrotliFilter;
 
 
 /**
- * Zopfli filter.
+ * Brotli filter.
  *
  * @constructor
  * @param {object} inputNode - Input node.
  * @param {object} options - Options.
  */
-function ZopfliFilter(inputNode, options) {
-    if (!(this instanceof ZopfliFilter))
-        return new ZopfliFilter(inputNode, options);
+function BrotliFilter(inputNode, options) {
+    if (!(this instanceof BrotliFilter))
+        return new BrotliFilter(inputNode, options);
     Filter.call(this, inputNode);
 
     options = options || {};
 
-    this.zopfliOptions = {
-        numiterations: options.numIterations || 15,
-        blocksplitting: (options.blockSplitting === undefined ?
-                         true :
-                         options.blockSplitting),
-        blocksplittinglast: !!options.blockSplittingLast,
-        blocksplittingmax: (options.blockSplittingMax === undefined ?
-                            15 :
-                            options.blockSplittingMax)
+    this.brotliOptions = {
+        mode: options.mode || 0,
+        quality: options.quality || 11,
+        lgwin: options.lgwin || 22,
+        lgblock: options.lgblock || 0
     };
     this.keepUncompressed = options.keepUncompressed;
     this.appendSuffix = (options.hasOwnProperty('appendSuffix') ?
@@ -44,7 +40,7 @@ function ZopfliFilter(inputNode, options) {
     }
 }
 
-ZopfliFilter.prototype.processFile = function(srcDir, destDir, relativePath) {
+BrotliFilter.prototype.processFile = function(srcDir, destDir, relativePath) {
     if (this.keepUncompressed) {
         helpers.copyPreserveSync(srcDir + '/' + relativePath,
                                  destDir + '/' + relativePath);
@@ -53,15 +49,15 @@ ZopfliFilter.prototype.processFile = function(srcDir, destDir, relativePath) {
     return Filter.prototype.processFile.apply(this, arguments);
 };
 
-ZopfliFilter.prototype.processString = function(str) {
-    return RSVP.denodeify(zopfli.gzip)(new Buffer(str), this.zopfliOptions);
+BrotliFilter.prototype.processString = function(str) {
+    return RSVP.denodeify(brotli.compress)(new Buffer(str), this.brotliOptions);
 };
 
-ZopfliFilter.prototype.getDestFilePath = function() {
+BrotliFilter.prototype.getDestFilePath = function() {
     var destFilePath = Filter.prototype.getDestFilePath.apply(this, arguments);
     if (destFilePath) {
-        return this.appendSuffix ? destFilePath + '.gz' : destFilePath;
+        return this.appendSuffix ? destFilePath + '.br' : destFilePath;
     }
 };
 
-module.exports = ZopfliFilter;
+module.exports = BrotliFilter;

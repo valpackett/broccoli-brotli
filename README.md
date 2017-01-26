@@ -1,23 +1,23 @@
-# Broccoli Zopfli gzip plugin
+# Broccoli Brotli plugin
 
-[![Build Status](https://travis-ci.org/nickbruun/broccoli-zopfli.svg?branch=master)](https://travis-ci.org/nickbruun/broccoli-zopfli) [![npm version](https://badge.fury.io/js/broccoli-zopfli.svg)](https://badge.fury.io/js/broccoli-zopfli)
+[![Build Status](https://travis-ci.org/myfreeweb/broccoli-brotli.svg?branch=master)](https://travis-ci.org/myfreeweb/broccoli-brotli) [![npm version](https://badge.fury.io/js/broccoli-brotli.svg)](https://badge.fury.io/js/broccoli-brotli)
 
-Fork of [broccoli-gzip](https://github.com/salsify/broccoli-gzip) to use Zopfli instead of gzip to perform gzip compression. All credit goes to the original authors of broccoli-gzip.
+Fork of [broccoli-zopfli](https://github.com/nickbruun/broccoli-zopfli) (which is a fork of [broccoli-gzip](https://github.com/salsify/broccoli-gzip)) to use Brotli instead of Zopfli instead of gzip to perform compression. All credit goes to the original authors of broccoli-{zopfli,gzip}.
 
 
 ## Installation
 
 ```bash
-$ npm install broccoli-zopfli
+$ npm install broccoli-brotli
 ```
 
 
 ## Example
 
 ```javascript
-var zopfliGzipFiles = require('broccoli-zopfli');
+var Brotli = require('broccoli-brotli');
 
-var tree = zopfliGzipFiles('app', {
+var tree = new Brotli('app', {
   extensions: ['js', 'css', 'svg']
 });
 ```
@@ -25,7 +25,7 @@ var tree = zopfliGzipFiles('app', {
 
 ## Configuration
 
-### `zopfliGzipFiles(inputTree, options)`
+### `new Brotli(inputNode, options)`
 
 ---
 
@@ -43,33 +43,33 @@ Whether to keep uncompressed versions of the files in the resulting tree.
 
 `options.appendSuffix` *{Boolean}* (optional, default `true`)
 
-Whether to append the `.gz` extension suffix to compressed files.
+Whether to append the `.br` extension suffix to compressed files.
 
 ---
 
-`options.numIterations` *{Number}* (optional, default `15`)
+`options.mode` *{Number}* (optional, default `0`)
 
-Maximum amount of times to rerun forward and backward pass to optimize LZ77 compression cost. Good values: 10, 15 for small files, 5 for files over several MB in size or it will be too slow.
-
----
-
-`options.blockSplitting` *{Boolean}* (optional, default `true`) 
-
-If true, splits the data in multiple deflate blocks with optimal choice for the block boundaries. Block splitting gives better compression.
+Brotli mode
 
 ---
 
-`options.blockSplittingLast` *{Boolean}* (optional, default `false`) 
+`options.quality` *{Number}* (optional, default `11`) 
 
-If true, chooses the optimal block split points only after doing the iterative LZ77 compression. If false, chooses the block split points first, then does iterative LZ77 on each individual block. Depending on the file, either first or last gives the best compression.
+Compression strength
 
 ---
 
-`options.blockSplittingMax` *{Number}* (optional, default `15`) 
+`options.lgwin` *{Number}* (optional, default `22`) 
 
-Maximum amount of blocks to split into (0 for unlimited, but this can give extreme results that hurt compression on some files).
+No idea lol
+
+---
+
+`options.lgblock` *{Number}* (optional, default `0`) 
+
+No idea lol
 
 
 ## License
 
-broccoli-zopfli is, like broccoli-gzip, distributed under the MIT license.
+broccoli-brotli is, like broccoli-zopfli, distributed under the MIT license.

@@ -1,7 +1,7 @@
-var gzip = require('../index');
+var brotli = require('../index');
 
 var RSVP = require('rsvp');
-var zlib = require('zlib');
+var iltorb = require('iltorb');
 var expect = require('expect.js');
 
 var fs = require('fs');
@@ -12,27 +12,27 @@ var csvContent = fs.readFileSync('tests/fixtures/sample-assets/test.csv');
 
 var builder;
 
-describe('broccoli-gzip', function(){
+describe('broccoli-brotli', function(){
     afterEach(function() {
         if (builder) {
             builder.cleanup();
         }
     });
 
-    it('gzips files that match the configured extension', function() {
+    it('brottles files that match the configured extension', function() {
         var sourcePath = 'tests/fixtures/sample-assets';
-        var node = new gzip(sourcePath, {
+        var node = new brotli(sourcePath, {
             extensions: ['txt']
         });
 
         builder = new broccoli.Builder(node);
         return builder.build().then(function() {
-            var gzippedText = fs.readFileSync(builder.outputPath + '/test.txt.gz');
+            var brotledText = fs.readFileSync(builder.outputPath + '/test.txt.br');
 
             return RSVP.hash({
                 dir: builder.outputPath,
                 actualCsv: fs.readFileSync(sourcePath + '/test.csv'),
-                actualText: RSVP.denodeify(zlib.gunzip)(gzippedText)
+                actualText: RSVP.denodeify(iltorb.decompress)(brotledText)
             });
         }).then(function(result) {
             expect(result.actualText).to.eql(textContent);
@@ -43,18 +43,18 @@ describe('broccoli-gzip', function(){
 
     it('keeps the uncompressed files when configured to', function() {
         var sourcePath = 'tests/fixtures/sample-assets';
-        var node = new gzip(sourcePath, {
+        var node = new brotli(sourcePath, {
             keepUncompressed: true,
             extensions: ['txt']
         });
 
         builder = new broccoli.Builder(node);
         return builder.build().then(function() {
-            var gzippedText = fs.readFileSync(builder.outputPath + '/test.txt.gz');
+            var brotledText = fs.readFileSync(builder.outputPath + '/test.txt.br');
             return RSVP.hash({
                 dir: builder.outputPath,
                 actualCsv: fs.readFileSync(builder.outputPath + '/test.csv'),
-                actualText: RSVP.denodeify(zlib.gunzip)(gzippedText)
+                actualText: RSVP.denodeify(iltorb.decompress)(brotledText)
             });
         }).then(function(result) {
             expect(result.actualText).to.eql(textContent);
@@ -65,21 +65,21 @@ describe('broccoli-gzip', function(){
 
     it('it does not append the suffix when configured to', function(){
         var sourcePath = 'tests/fixtures/sample-assets';
-        var node = new gzip(sourcePath, {
+        var node = new brotli(sourcePath, {
             extensions: ['txt'],
             appendSuffix: false
         });
 
         builder = new broccoli.Builder(node);
         return builder.build().then(function() {
-            var gzippedText = fs.readFileSync(builder.outputPath + '/test.txt');
+            var brotledText = fs.readFileSync(builder.outputPath + '/test.txt');
             return RSVP.hash({
                 dir: builder.outputPath,
-                actualText: RSVP.denodeify(zlib.gunzip)(gzippedText)
+                actualText: RSVP.denodeify(iltorb.decompress)(brotledText)
             });
         }).then(function(result) {
             expect(result.actualText).to.eql(textContent);
-            expect(fs.existsSync(result.dir + '/test.txt.gz')).to.not.be.ok();
+            expect(fs.existsSync(result.dir + '/test.txt.br')).to.not.be.ok();
         });
     });
 
@@ -87,7 +87,7 @@ describe('broccoli-gzip', function(){
         var sourcePath = 'tests/fixtures/sample-assets';
 
         expect(function() {
-            new gzip(sourcePath, {
+            new brotli(sourcePath, {
                 keepUncompressed: true,
                 appendSuffix: false
             });
