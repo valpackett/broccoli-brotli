@@ -20,7 +20,6 @@ BrotliFilter.prototype.constructor = BrotliFilter;
 function BrotliFilter(inputNode, options) {
     if (!(this instanceof BrotliFilter))
         return new BrotliFilter(inputNode, options);
-    Filter.call(this, inputNode);
 
     options = options || {};
 
@@ -38,6 +37,8 @@ function BrotliFilter(inputNode, options) {
     if (this.keepUncompressed && !this.appendSuffix) {
         throw new Error('Cannot keep uncompressed files without appending suffix. Filenames would be the same.');
     }
+
+    Filter.call(this, inputNode, options);
 }
 
 BrotliFilter.prototype.processFile = function(srcDir, destDir, relativePath) {
