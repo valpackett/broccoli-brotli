@@ -1,6 +1,6 @@
 {
   "name": "broccoli-brotli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Broccoli plugin to gzip trees using Brotli",
   "main": "index.js",
   "author": "Greg V",
@@ -14,9 +14,9 @@
     "brotli"
   ],
   "devDependencies": {
-    "broccoli": "^1.1.0",
+    "broccoli": "^1.1.4",
     "expect.js": "^0.3.1",
-    "mocha": "^3.2.0"
+    "mocha": "^4.0.1"
   },
   "scripts": {
     "test": "mocha tests/"
@@ -24,7 +24,7 @@
   "dependencies": {
     "broccoli-filter": "^1.2.4",
     "broccoli-kitchen-sink-helpers": "^0.3.1",
-    "iltorb": "^1.0.13",
-    "rsvp": "^3.3.3"
+    "iltorb": "^2.0.2",
+    "rsvp": "^4.7.0"
   }
 }
