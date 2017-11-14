@@ -1,6 +1,9 @@
-# Broccoli Brotli plugin
+[![npm version](https://img.shields.io/npm/v/broccoli-brotli.svg)](https://www.npmjs.com/package/broccoli-brotli)
+[![npm downloads](https://img.shields.io/npm/dt/broccoli-brotli.svg)](https://www.npmjs.com/package/broccoli-brotli)
+[![Build Status](https://travis-ci.org/myfreeweb/broccoli-brotli.svg?branch=master)](https://travis-ci.org/myfreeweb/broccoli-brotli)
+[![MIT License](https://img.shields.io/badge/mit-license-green.svg?style=flat)](https://mit-license.org/)
 
-[![Build Status](https://travis-ci.org/myfreeweb/broccoli-brotli.svg?branch=master)](https://travis-ci.org/myfreeweb/broccoli-brotli) [![npm version](https://badge.fury.io/js/broccoli-brotli.svg)](https://badge.fury.io/js/broccoli-brotli)
+# Broccoli Brotli plugin
 
 Fork of [broccoli-zopfli](https://github.com/nickbruun/broccoli-zopfli) (which is a fork of [broccoli-gzip](https://github.com/salsify/broccoli-gzip)) to use Brotli instead of Zopfli instead of gzip to perform compression. All credit goes to the original authors of broccoli-{zopfli,gzip}.
 
@@ -8,18 +11,18 @@ Fork of [broccoli-zopfli](https://github.com/nickbruun/broccoli-zopfli) (which i
 ## Installation
 
 ```bash
-$ npm install broccoli-brotli
+$ npm i broccoli-brotli
 ```
 
 
 ## Example
 
 ```javascript
-var Brotli = require('broccoli-brotli');
+const Brotli = require('broccoli-brotli')
 
-var tree = new Brotli('app', {
+const tree = new Brotli('app', {
   extensions: ['js', 'css', 'svg']
-});
+})
 ```
 
 
