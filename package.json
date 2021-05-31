@@ -1,13 +1,13 @@
 {
   "name": "broccoli-brotli",
-  "version": "1.0.2",
-  "description": "Broccoli plugin to gzip trees using Brotli",
+  "version": "2.0.0",
+  "description": "Broccoli plugin to compress trees using Brotli",
   "main": "index.js",
   "author": "Greg V",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/myfreeweb/broccoli-brotli.git"
+    "url": "https://github.com/unrelentingtech/broccoli-brotli.git"
   },
   "keywords": [
     "broccoli-plugin",
