@@ -3,7 +3,7 @@ var RSVP = require('rsvp'),
     helpers = require('broccoli-kitchen-sink-helpers'),
     Filter = require('broccoli-filter'),
     Buffer = require('buffer').Buffer,
-    brotli = require('iltorb');
+    zlib = require('zlib');
 
 
 BrotliFilter.prototype = Object.create(Filter.prototype);
@@ -21,14 +21,7 @@ function BrotliFilter(inputNode, options) {
     if (!(this instanceof BrotliFilter))
         return new BrotliFilter(inputNode, options);
 
-    options = options || {};
-
-    this.brotliOptions = {
-        mode: options.mode || 0,
-        quality: options.quality || 11,
-        lgwin: options.lgwin || 22,
-        lgblock: options.lgblock || 0
-    };
+    this.brotliOptions = options || {};
     this.keepUncompressed = options.keepUncompressed;
     this.appendSuffix = (options.hasOwnProperty('appendSuffix') ?
                          options.appendSuffix :
@@ -55,7 +48,7 @@ BrotliFilter.prototype.processFile = function(srcDir, destDir, relativePath) {
 };
 
 BrotliFilter.prototype.processString = function(str) {
-    return RSVP.denodeify(brotli.compress)(Buffer.from(str), this.brotliOptions);
+    return RSVP.denodeify(zlib.brotliCompress)(Buffer.from(str), this.brotliOptions);
 };
 
 BrotliFilter.prototype.getDestFilePath = function() {

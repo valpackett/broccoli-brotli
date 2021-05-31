@@ -24,7 +24,6 @@
   "dependencies": {
     "broccoli-filter": "^1.2.4",
     "broccoli-kitchen-sink-helpers": "^0.3.1",
-    "iltorb": "^2.0.2",
     "rsvp": "^4.7.0"
   }
 }

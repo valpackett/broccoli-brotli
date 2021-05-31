@@ -1,7 +1,7 @@
 var brotli = require('../index');
 
 var RSVP = require('rsvp');
-var iltorb = require('iltorb');
+var zlib = require('zlib');
 var expect = require('expect.js');
 
 var fs = require('fs');
@@ -32,7 +32,7 @@ describe('broccoli-brotli', function(){
             return RSVP.hash({
                 dir: builder.outputPath,
                 actualCsv: fs.readFileSync(sourcePath + '/test.csv'),
-                actualText: RSVP.denodeify(iltorb.decompress)(brotledText)
+                actualText: RSVP.denodeify(zlib.brotliDecompress)(brotledText)
             });
         }).then(function(result) {
             expect(result.actualText).to.eql(textContent);
@@ -54,7 +54,7 @@ describe('broccoli-brotli', function(){
             return RSVP.hash({
                 dir: builder.outputPath,
                 actualCsv: fs.readFileSync(builder.outputPath + '/test.csv'),
-                actualText: RSVP.denodeify(iltorb.decompress)(brotledText)
+                actualText: RSVP.denodeify(zlib.brotliDecompress)(brotledText)
             });
         }).then(function(result) {
             expect(result.actualText).to.eql(textContent);
@@ -75,7 +75,7 @@ describe('broccoli-brotli', function(){
             var brotledText = fs.readFileSync(builder.outputPath + '/test.txt');
             return RSVP.hash({
                 dir: builder.outputPath,
-                actualText: RSVP.denodeify(iltorb.decompress)(brotledText)
+                actualText: RSVP.denodeify(zlib.brotliDecompress)(brotledText)
             });
         }).then(function(result) {
             expect(result.actualText).to.eql(textContent);
