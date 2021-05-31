@@ -1,6 +1,5 @@
 [![npm version](https://img.shields.io/npm/v/broccoli-brotli.svg)](https://www.npmjs.com/package/broccoli-brotli)
 [![npm downloads](https://img.shields.io/npm/dt/broccoli-brotli.svg)](https://www.npmjs.com/package/broccoli-brotli)
-[![Build Status](https://travis-ci.org/myfreeweb/broccoli-brotli.svg?branch=master)](https://travis-ci.org/myfreeweb/broccoli-brotli)
 [![MIT License](https://img.shields.io/badge/mit-license-green.svg?style=flat)](https://mit-license.org/)
 
 # Broccoli Brotli plugin
