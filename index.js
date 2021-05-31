@@ -55,7 +55,7 @@ BrotliFilter.prototype.processFile = function(srcDir, destDir, relativePath) {
 };
 
 BrotliFilter.prototype.processString = function(str) {
-    return RSVP.denodeify(brotli.compress)(new Buffer(str), this.brotliOptions);
+    return RSVP.denodeify(brotli.compress)(Buffer.from(str), this.brotliOptions);
 };
 
 BrotliFilter.prototype.getDestFilePath = function() {
