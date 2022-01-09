@@ -49,28 +49,11 @@ Whether to append the `.br` extension suffix to compressed files.
 
 ---
 
-`options.mode` *{Number}* (optional, default `0`)
+`options.XXX`
 
-Brotli mode
-
----
-
-`options.quality` *{Number}* (optional, default `11`) 
-
-Compression strength
+Where `XXX` comes from [BrotliOptions](https://nodejs.org/dist/latest-v15.x/docs/api/zlib.html#zlib_class_brotlioptions).
 
 ---
-
-`options.lgwin` *{Number}* (optional, default `22`) 
-
-No idea lol
-
----
-
-`options.lgblock` *{Number}* (optional, default `0`) 
-
-No idea lol
-
 
 ## License
 
