@@ -35,6 +35,15 @@ function BrotliFilter(inputNode, options) {
         throw new Error('Cannot keep uncompressed files without appending suffix. Filenames would be the same.');
     }
 
+    // Translate iltorb to zlib options (eg. quality -> BROTLI_PARAM_QUALITY)
+    this.brotliOptions.params = options.params || {};
+    for (var opt in options) {
+        var param = 'BROTLI_PARAM_' + opt.toUpperCase();
+        if (zlib.constants[param] !== undefined) {
+          this.brotliOptions.params[zlib.constants[param]] = options[opt];
+        }
+    }
+
     Filter.call(this, inputNode, options);
 }
 
